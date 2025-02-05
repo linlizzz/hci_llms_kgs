@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  dynamodb-local:
+    image: amazon/dynamodb-local
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./dynamodb_data:/home/dynamodblocal/data
+    command: "-jar DynamoDBLocal.jar -dbPath /home/dynamodblocal/data"
+    container_name: dynamodb-local
+
+  neo4j:
+    image: neo4j
+    ports:
+      - "7474:7474"  # HTTP
+      - "7687:7687"  # Bolt
+    volumes:
+      - /Users/zhangl9/Documents/hci_llms_kgs/Neo4j_originalData:/import  # For importing CSV files
+      - ./neo4j_data/data:/data  # For persistent Neo4j data
+    environment:
+      - NEO4J_AUTH=neo4j/strongpass
+      - NEO4J_server_memory_heap_initial__size=2G
+      - NEO4J_server_memory_heap_max__size=4G
+      - NEO4J_server_memory_pagecache_size=2G
+    container_name: neo4j

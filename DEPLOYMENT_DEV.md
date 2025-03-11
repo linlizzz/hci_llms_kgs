@@ -4,7 +4,7 @@ docker compose up -d
 ```
 ### Start the app
 ```
-cd KNOWNET
+# cd KNOWNET
 pnpm dev
 ```
 ### Test dynamodb
